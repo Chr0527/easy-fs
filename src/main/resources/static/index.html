@@ -210,7 +210,7 @@
             layer.confirm('确定要删除此文件吗？', function () {
                 layer.load(2);
                 $.get(baseServer + 'api/del', {
-                    file: mUrl
+                    file: mUrl.substring(mUrl.indexOf('/file/') + 6)
                 }, function (res) {
                     layer.closeAll('loading');
                     if (res.code == 200) {
