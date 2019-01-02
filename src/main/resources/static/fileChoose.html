@@ -85,7 +85,7 @@
     <div class="file-list-item" data-dir="{{item.isDir}}" data-url="{{item.url}}" data-name="{{item.name}}">
         <div class="file-list-img {{item.hasSm?'media':''}}">
             {{# if(item.hasSm){ }}
-            <img src="file/{{item.smUrl}}"/>
+            <img src="{{item.smUrl}}"/>
             {{# }else{ }}
             <img src="assets/images/fti/{{item.type}}.png"/>
             {{# } }}
@@ -107,6 +107,7 @@
 </script>
 
 <script type="text/javascript" src="assets/layui/layui.js"></script>
+<script type="text/javascript" src="assets/config.js"></script>
 <script>
     var accept, exts, multi, maxNum;  // 参数配置
     layui.use(['jquery', 'layer', 'form', 'upload', 'laytpl', 'util'], function () {
@@ -134,13 +135,17 @@
                 dir = $('#tvFP').text();
             }
             layer.load(2);
-            $.get('api/list', {
+            $.get(baseServer + 'api/list', {
                 dir: dir,
                 accept: accept,
                 exts: exts
             }, function (res) {
                 layer.closeAll('loading');
                 if (res.code == 200) {
+                    for (var i = 0; i < res.data.length; i++) {
+                        res.data[i].url = baseServer + 'file/' + res.data[i].url;
+                        res.data[i].smUrl = baseServer + 'file/' + res.data[i].smUrl;
+                    }
                     laytpl(fileTpl.innerHTML).render(res.data, function (html) {
                         $('#btnSel').text('完成选择');
                         $('.file-list').html(html);
@@ -161,7 +166,7 @@
         }
         upload.render({
             elem: '#btnUpload',
-            url: 'file/upload',
+            url: baseServer + 'file/upload',
             choose: function (obj) {
                 layer.load(2);
             },
@@ -237,7 +242,7 @@
 
         // 打开
         $('#open').click(function () {
-            window.open('file/' + mUrl);
+            window.open(mUrl);
         });
         // 选择
         $('#sel').click(function () {

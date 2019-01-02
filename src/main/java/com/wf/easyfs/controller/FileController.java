@@ -19,6 +19,7 @@ import java.util.*;
  * 文件服务器
  * Created by wangfan on 2018-12-24 下午 4:10.
  */
+@CrossOrigin
 @Controller
 public class FileController {
     @Value("${fs.dir}")

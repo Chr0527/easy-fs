@@ -71,7 +71,7 @@
     <div class="file-list-item" data-dir="{{item.isDir}}" data-url="{{item.url}}" data-name="{{item.name}}">
         <div class="file-list-img {{item.hasSm?'media':''}}">
             {{# if(item.hasSm){ }}
-            <img src="file/{{item.smUrl}}"/>
+            <img src="{{item.smUrl}}"/>
             {{# }else{ }}
             <img src="assets/images/fti/{{item.type}}.png"/>
             {{# } }}
@@ -89,6 +89,7 @@
 
 <script type="text/javascript" src="assets/layui/layui.js"></script>
 <script type="text/javascript" src="assets/clipboard.min.js"></script>
+<script type="text/javascript" src="assets/config.js"></script>
 <script>
     layui.use(['jquery', 'layer', 'element', 'upload', 'laytpl', 'util'], function () {
         var $ = layui.jquery;
@@ -104,11 +105,15 @@
                 dir = $('#tvFP').text();
             }
             layer.load(2);
-            $.get('api/list', {
+            $.get(baseServer + 'api/list', {
                 dir: dir
             }, function (res) {
                 layer.closeAll('loading');
                 if (res.code == 200) {
+                    for (var i = 0; i < res.data.length; i++) {
+                        res.data[i].url = baseServer + 'file/' + res.data[i].url;
+                        res.data[i].smUrl = baseServer + 'file/' + res.data[i].smUrl;
+                    }
                     laytpl(fileTpl.innerHTML).render(res.data, function (html) {
                         $('.file-list').html(html);
                     });
@@ -123,7 +128,7 @@
         // 上传文件事件
         upload.render({
             elem: '#btnUpload',
-            url: 'file/upload',
+            url: baseServer + 'file/upload',
             choose: function (obj) {
                 layer.load(2);
             },
@@ -198,13 +203,13 @@
 
         // 打开
         $('#open').click(function () {
-            window.open('file/' + mUrl);
+            window.open(mUrl);
         });
         // 删除
         $('#del').click(function () {
             layer.confirm('确定要删除此文件吗？', function () {
                 layer.load(2);
-                $.get('api/del', {
+                $.get(baseServer + 'api/del', {
                     file: mUrl
                 }, function (res) {
                     layer.closeAll('loading');

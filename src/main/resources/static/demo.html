@@ -62,9 +62,9 @@
         <div class="layui-card-header">在富文本编辑器中使用</div>
         <div class="layui-card-body">
             <textarea id="richTV" style="display: none;">
-                <p><img src="/assets/layui/images/face/46.gif" alt="[互粉]">&nbsp;<img
-                        src="/assets/layui/images/face/46.gif" alt="[互粉]">&nbsp;<img
-                        src="/assets/layui/images/face/46.gif" alt="[互粉]">&nbsp;<b><span>EasyFS</span><span
+                <p><img src="./assets/layui/images/face/46.gif" alt="[互粉]">&nbsp;<img
+                        src="./assets/layui/images/face/46.gif" alt="[互粉]">&nbsp;<img
+                        src="./assets/layui/images/face/46.gif" alt="[互粉]">&nbsp;<b><span>EasyFS</span><span
                         class="layui-hide-xs">文件服务器</span></b></p>
             </textarea>
         </div>
@@ -77,6 +77,7 @@
 </div>
 
 <script type="text/javascript" src="assets/layui/layui.js"></script>
+<script type="text/javascript" src="assets/config.js"></script>
 <script>
     layui.use(['jquery', 'layer', 'element', 'form', 'layedit'], function () {
         var $ = layui.jquery;
@@ -111,7 +112,7 @@
                 layer.msg('请先选择', {icon: 2});
             } else {
                 layer.photos({
-                    photos: {data: [{src: 'file/' + url}]}, anim: 5, shade: .1, closeBtn: 2
+                    photos: {data: [{src: url}]}, anim: 5, shade: .1, closeBtn: 2
                 });
             }
         });
@@ -144,7 +145,7 @@
                     if (typeof(mFsUrls) != "undefined" && mFsUrls.length > 0) {
                         var strs = '';
                         for (var i = 0; i < mFsUrls.length; i++) {
-                            strs += '<br><img src="file/' + mFsUrls[i] + '" style="max-width: 100%;" />';
+                            strs += '<br><img src="' + mFsUrls[i] + '" style="max-width: 100%;" />';
                         }
                         try {
                             layedit.setContent(edtIndex, strs, true);
