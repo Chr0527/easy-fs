@@ -1,6 +1,7 @@
 package com.wf.easyfs.controller;
 
 import net.coobird.thumbnailator.Thumbnails;
+import org.apache.tika.Tika;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -82,7 +83,8 @@ public class FileController {
                 // 获取文件类型
                 String contentType = null;
                 try {
-                    contentType = Files.probeContentType(Paths.get(outFile.getName()));
+                    // contentType = Files.probeContentType(Paths.get(outFile.getName()));
+                    contentType = new Tika().detect(outFile);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -183,10 +185,11 @@ public class FileController {
             return;
         }
         // 获取文件类型
-        Path path = Paths.get(inFile.getName());
         String contentType = null;
         try {
-            contentType = Files.probeContentType(path);
+            // Path path = Paths.get(inFile.getName());
+            // contentType = Files.probeContentType(path);
+            contentType = new Tika().detect(inFile);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -269,11 +272,12 @@ public class FileController {
                     String type;
                     m.put("url", (dir.isEmpty() ? dir : (dir + "/")) + f.getName());  // 文件地址
                     // 获取文件类型
-                    Path path = Paths.get(f.getName());
                     String contentType = null;
                     String suffix = f.getName().substring(f.getName().lastIndexOf(".") + 1);
                     try {
-                        contentType = Files.probeContentType(path);
+                        // Path path = Paths.get(f.getName());
+                        // contentType = Files.probeContentType(path);
+                        contentType = new Tika().detect(f);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }

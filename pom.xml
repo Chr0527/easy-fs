@@ -5,7 +5,7 @@
 
     <groupId>com.wf</groupId>
     <artifactId>easy-fs</artifactId>
-    <version>1.0</version>
+    <version>1.2</version>
     <packaging>jar</packaging>
 
     <name>easy-fs</name>
@@ -49,6 +49,13 @@
             <groupId>net.coobird</groupId>
             <artifactId>thumbnailator</artifactId>
             <version>0.4.8</version>
+        </dependency>
+
+        <!-- 获取文件类型 -->
+        <dependency>
+            <groupId>org.apache.tika</groupId>
+            <artifactId>tika-core</artifactId>
+            <version>1.20</version>
         </dependency>
 
     </dependencies>
