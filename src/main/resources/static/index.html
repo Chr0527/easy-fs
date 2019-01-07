@@ -48,7 +48,11 @@
 </div>
 
 <div style="text-align: center;margin: 60px 0 20px 0;">
-    <a style="color: #777;" href="http://easyweb.vip" target="_blank">easyweb.vip 版权所有</a>
+    <a href='https://gitee.com/whvse/easy-fs' target="_blank" id="aMY">
+        <img src='https://gitee.com/whvse/easy-fs/widgets/widget_4.svg' alt='Fork me on Gitee'/>
+    </a>
+    <br><br>
+    <a style="color: #777;" href="http://easyweb.vip" target="_blank">easyweb.vip All rights reserved.</a>
 </div>
 
 <!-- 下拉菜单 -->
@@ -252,6 +256,12 @@
             });
         });
 
+        //
+        $('#aMY').on('mouseenter', function () {
+            layer.tips('前往码云查看', this, {tips: [1, '#333333'], time: -1});
+        }).on('mouseleave', function () {
+            layer.closeAll('tips');
+        });
     });
 </script>
 </body>
